@@ -117,7 +117,7 @@ class AdminController extends Controller
                 $errores['error_file'] = "el archivo tiene formato no permitido";
             }
             
-            $url_insert = dirname(__FILE__,3)."\\public\\assets\\images\\";
+            $url_insert = dirname(__FILE__,3)."\\public\\assets\\images\\pets\\";
             
             
             if(empty($errors)){
@@ -130,7 +130,7 @@ class AdminController extends Controller
                 
                 if (move_uploaded_file($url_temp, $url_insert.$file)) {
                     
-                    $url_insert = "assets/images/".$file;
+                    $url_insert = "assets/images/pets/".$file;
                     
                     $this -> model-> insert($name, $raza, $category, $url_insert, $genero);
                     
@@ -223,7 +223,7 @@ class AdminController extends Controller
             }
             
             
-            $url_insert = dirname(__FILE__,3)."\\public\\assets\\images\\";
+            $url_insert = dirname(__FILE__,3)."\\public\\assets\\images\\pets\\";
             
             if($file == null){
                 
@@ -264,7 +264,7 @@ class AdminController extends Controller
                     if (move_uploaded_file($url_temp, $url_insert.$file)) {
                         
     
-                        $url_insert = "assets/images/".$file;
+                        $url_insert = "assets/images/pets/".$file;
                         
                         $this -> model-> update($name, $raza, $category, $url_insert, $genero, $id);
                         
@@ -313,16 +313,16 @@ class AdminController extends Controller
         {
 
             $photo = $_POST['photo'];
-
-            if(!file_exists("assets/images")){
-                mkdir("assets/images", 0777, true);
-            }
             
+
+
             if(is_file($photo)){
                 chmod($photo, 0777);
                 unlink($photo);
             }
+
             $this -> model->delete($id);
+
             header("Location:".URL."/admin");
 
         }else{
